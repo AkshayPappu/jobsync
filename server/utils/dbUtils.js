@@ -37,3 +37,25 @@ export const storeCreateJob = async (userId, jobDescription, keywords) => {
     const result = await pool.query(query, values);
     return result;
 }
+
+export const getAllUserJobs = async (userId) => {
+    const query = `
+        SELECT job_id, description, keywords
+        FROM Job_Descriptions
+        WHERE user_id = $1;
+    `;
+    const values = [userId];
+    const result = await pool.query(query, values);
+    return result;
+}
+
+export const getAllJobResumes = async (jobId) => {
+    const query = `
+        SELECT resume_id, resume_file, rating, fulfilled_keywords, missing_keywords
+        FROM Resumes
+        WHERE job_id = $1;
+    `;
+    const values = [jobId];
+    const result = await pool.query(query, values);
+    return result;
+}
