@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "../../firebase";
 import DefaultLayout from "../components/Layouts/DefaultLayout";
-import ECommerce from "../components/Dashboard/E-commerce";
+import Profile from "./profile/page";
 
 
 interface HomePageProps {
@@ -36,7 +36,7 @@ export default function HomePage({ email }: HomePageProps) {
         //     </button>
         // </main>
         <DefaultLayout>
-          <ECommerce />
+          <Profile />
         </DefaultLayout>
         
   );

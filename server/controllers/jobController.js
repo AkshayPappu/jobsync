@@ -1,6 +1,5 @@
-import { getAllJobResumes } from "../utils/dbUtils.js";
+import { getAllJobResumes, storeCreateJob, getJobById } from "../utils/dbUtils.js";
 import { generateKeywords } from '../utils/gptUtils.js';
-import { storeCreateJob } from "../utils/dbUtils.js";
 
 export const getResumesForJob = async (req, res) => {
     try {
@@ -17,6 +16,22 @@ export const getResumesForJob = async (req, res) => {
         res.status(500).send(error);
     }
 }
+
+export const getJobForId = async (req, res) => {
+    try {
+        // Check if a jobId is present
+        const jobId = req.params.jobId;
+        if (!jobId) {
+            return res.status(400).send('Please provide a jobId');
+        }
+        // get job from db
+        const result = await getJobById(jobId);
+        res.status(200).send(result.rows);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
 
 // create a new job
 export const createJob = async (req, res) => {

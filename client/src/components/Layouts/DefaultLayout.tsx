@@ -46,7 +46,6 @@ export default function DefaultLayout({
           title: item.title,
         }));
         
-        console.log(retreivedJobs);
         setJobs(retreivedJobs);
         
       } catch (error) {

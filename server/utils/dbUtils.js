@@ -59,3 +59,14 @@ export const getAllJobResumes = async (jobId) => {
     const result = await pool.query(query, values);
     return result;
 }
+
+export const getJobById = async (jobId) => { 
+    const query = `
+        SELECT job_id, description, keywords, title, user_id, created_at
+        FROM Job_Descriptions
+        WHERE job_id = $1;
+    `;
+    const values = [jobId];
+    const result = await pool.query(query, values);
+    return result;
+}
