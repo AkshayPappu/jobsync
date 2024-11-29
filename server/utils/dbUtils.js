@@ -26,21 +26,21 @@ export const storeResume = async (jobId, s3_url, gptData) => {
     return result;
 }
 
-export const storeCreateJob = async (userId, jobDescription, keywords) => {
+export const storeCreateJob = async (userId, title, jobDescription, keywords) => {
     const jobId = uuidv4();
     const query = `
-        INSERT INTO Job_Descriptions (job_id, user_id, description, keywords)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO Job_Descriptions (job_id, user_id, title, description, keywords)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING job_id;
     `;
-    const values = [jobId, userId, jobDescription, keywords];
+    const values = [jobId, userId, title, jobDescription, keywords];
     const result = await pool.query(query, values);
     return result;
 }
 
 export const getAllUserJobs = async (userId) => {
     const query = `
-        SELECT job_id, description, keywords
+        SELECT job_id, description, keywords, title, user_id, created_at
         FROM Job_Descriptions
         WHERE user_id = $1;
     `;

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authMiddleware, redirectToHome, redirectToLogin } from "next-firebase-auth-edge";
-import { clientConfig, serverConfig } from "./config";
+import { clientConfig, serverConfig } from "../config";
 
 const PUBLIC_PATHS = ['/register', '/login'];
 
@@ -26,7 +26,6 @@ export async function middleware(request: NextRequest) {
     },
     handleInvalidToken: async (reason) => {
       console.info('Missing or malformed credentials', {reason});
-
       return redirectToLogin(request, {
         path: '/login',
         publicPaths: PUBLIC_PATHS
@@ -34,7 +33,6 @@ export async function middleware(request: NextRequest) {
     },
     handleError: async (error) => {
       console.error('Unhandled authentication error', {error});
-      
       return redirectToLogin(request, {
         path: '/login',
         publicPaths: PUBLIC_PATHS

@@ -1,5 +1,6 @@
 // server.js
 import express from 'express';
+import cors from 'cors';
 import pkg from 'pg';
 import fileUpload from 'express-fileupload';
 import routes from './routes.js';
@@ -20,8 +21,9 @@ export const pool = new Pool({
   });
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
+app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use('/api', routes);

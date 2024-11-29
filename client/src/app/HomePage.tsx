@@ -38,5 +38,6 @@ export default function HomePage({ email }: HomePageProps) {
         <DefaultLayout>
           <ECommerce />
         </DefaultLayout>
+        
   );
 }
